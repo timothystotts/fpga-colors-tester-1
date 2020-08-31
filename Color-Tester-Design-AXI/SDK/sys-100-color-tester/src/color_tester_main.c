@@ -139,16 +139,16 @@ void Experiment_OLEDInitialize(t_experiment_data* expData)
 	         XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_BASEADDR);
 
 	OLEDrgb_SetCursor(&(expData->oledrgbDevice), 0, 0);
-	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(0, 0, 255)); // Green font
+	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(255, 255, 255)); // White font
 	OLEDrgb_PutString(&(expData->oledrgbDevice), "Colors Test:");
 	OLEDrgb_SetCursor(&(expData->oledrgbDevice), 0, 1);
-	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(0, 0, 255)); // Green font
+	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(255, 255, 255)); // White font
 	OLEDrgb_PutString(&(expData->oledrgbDevice), "for  compare");
 	OLEDrgb_SetCursor(&(expData->oledrgbDevice), 0, 2);
-	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(0, 0, 255)); // Green font
+	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(255, 255, 255)); // White font
 	OLEDrgb_PutString(&(expData->oledrgbDevice), "  RGB   LEDs");
 	OLEDrgb_SetCursor(&(expData->oledrgbDevice), 0, 3);
-	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(0, 0, 255)); // Green font
+	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(255, 255, 255)); // White font
 	OLEDrgb_PutString(&(expData->oledrgbDevice), "and OLEDrgb.");
 }
 
@@ -217,6 +217,7 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 			xil_printf("Key Pressed: %c\r\n", (char)key);
 			lastKey = key;
 
+			// All sequences start with key press 'A'
 			if (key == 'A')
 			{
 				stringIdx = 0;
@@ -228,6 +229,7 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 				stringIdx++;
 			}
 
+			// All sequences are length \ref CAPTURED_STRING_LENGTH
 			if (stringIdx == CAPTURED_STRING_LENGTH)
 			{
 				break;
@@ -244,6 +246,8 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 	}
 }
 
+/*-----------------------------------------------------------*/
+/* Main routine to perform color mixing. */
 int main()
 {
 	const u8 INVALID_LED_SILK = 255;
@@ -287,6 +291,10 @@ int main()
 				ledChanValue[2] = experiData.capturedString[10];
 				rgbChanValues[2] = atoi(ledChanValue);
 
+				xil_printf("Testing RGB mix: %03hhu,%03hhu,%03hhu = 0x%02hhx%02hhx%02hhx\r\n",
+						rgbChanValues[0], rgbChanValues[1], rgbChanValues[2],
+						rgbChanValues[0], rgbChanValues[1], rgbChanValues[2]);
+
 				Experiment_SetLedUpdate(&experiData, ledSilkIdx,
 						rgbChanValues[0],
 						rgbChanValues[1],
@@ -296,9 +304,9 @@ int main()
 						0, 4+ledSilkIdx);
 				OLEDrgb_SetFontColor(&(experiData.oledrgbDevice),
 						OLEDrgb_BuildRGB( /* The driver has a bug where RGB is actually BRG */
-								rgbChanValues[2],
 								rgbChanValues[0],
-								rgbChanValues[1]));
+								rgbChanValues[1],
+								rgbChanValues[2]));
 				snprintf(printBuf, sizeof(printBuf),
 						"Color LED%d  ", ledSilkIdx);
 				OLEDrgb_PutString(&(experiData.oledrgbDevice), printBuf);
