@@ -1,0 +1,3 @@
+[submodule "Color-Tester-Design-AXI/IP/vivado-library"]
+	path = Color-Tester-Design-AXI/IP/vivado-library
+	url = https://github.com/timothystotts/vivado-library.git

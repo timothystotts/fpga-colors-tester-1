@@ -1,0 +1,5 @@
+.sdk/
+.metadata/
+SDK.log
+webtalk/
+RemoteSystemsTempFiles/
