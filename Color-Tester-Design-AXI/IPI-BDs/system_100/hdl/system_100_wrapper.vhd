@@ -1,7 +1,7 @@
 --Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2019.1 (lin64) Build 2552052 Fri May 24 14:47:09 MDT 2019
---Date        : Fri Aug 28 22:48:26 2020
+--Date        : Mon Aug 31 17:38:23 2020
 --Host        : l2study running 64-bit Ubuntu 18.04.5 LTS
 --Command     : generate_target system_100_wrapper.bd
 --Design      : system_100_wrapper
@@ -78,6 +78,22 @@ architecture STRUCTURE of system_100_wrapper is
   component system_100 is
   port (
     sys_clock : in STD_LOGIC;
+    reset : in STD_LOGIC;
+    eth_ref_clk : out STD_LOGIC;
+    led03_rgb : out STD_LOGIC_VECTOR ( 11 downto 0 );
+    led47 : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    eth_mii_col : in STD_LOGIC;
+    eth_mii_crs : in STD_LOGIC;
+    eth_mii_rst_n : out STD_LOGIC;
+    eth_mii_rx_clk : in STD_LOGIC;
+    eth_mii_rx_dv : in STD_LOGIC;
+    eth_mii_rx_er : in STD_LOGIC;
+    eth_mii_rxd : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    eth_mii_tx_clk : in STD_LOGIC;
+    eth_mii_tx_en : out STD_LOGIC;
+    eth_mii_txd : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    usb_uart_rxd : in STD_LOGIC;
+    usb_uart_txd : out STD_LOGIC;
     ddr3_sdram_dq : inout STD_LOGIC_VECTOR ( 15 downto 0 );
     ddr3_sdram_dqs_p : inout STD_LOGIC_VECTOR ( 1 downto 0 );
     ddr3_sdram_dqs_n : inout STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -93,52 +109,12 @@ architecture STRUCTURE of system_100_wrapper is
     ddr3_sdram_cs_n : out STD_LOGIC_VECTOR ( 0 to 0 );
     ddr3_sdram_dm : out STD_LOGIC_VECTOR ( 1 downto 0 );
     ddr3_sdram_odt : out STD_LOGIC_VECTOR ( 0 to 0 );
-    reset : in STD_LOGIC;
-    usb_uart_rxd : in STD_LOGIC;
-    usb_uart_txd : out STD_LOGIC;
-    eth_mii_col : in STD_LOGIC;
-    eth_mii_crs : in STD_LOGIC;
-    eth_mii_rst_n : out STD_LOGIC;
-    eth_mii_rx_clk : in STD_LOGIC;
-    eth_mii_rx_dv : in STD_LOGIC;
-    eth_mii_rx_er : in STD_LOGIC;
-    eth_mii_rxd : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    eth_mii_tx_clk : in STD_LOGIC;
-    eth_mii_tx_en : out STD_LOGIC;
-    eth_mii_txd : out STD_LOGIC_VECTOR ( 3 downto 0 );
     eth_mdio_mdc_mdc : out STD_LOGIC;
     eth_mdio_mdc_mdio_i : in STD_LOGIC;
     eth_mdio_mdc_mdio_o : out STD_LOGIC;
     eth_mdio_mdc_mdio_t : out STD_LOGIC;
-    eth_ref_clk : out STD_LOGIC;
     dip_switches_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     push_buttons_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    led03_rgb : out STD_LOGIC_VECTOR ( 11 downto 0 );
-    led47 : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    ja_pin1_o : out STD_LOGIC;
-    ja_pin7_i : in STD_LOGIC;
-    ja_pin2_o : out STD_LOGIC;
-    ja_pin8_i : in STD_LOGIC;
-    ja_pin3_o : out STD_LOGIC;
-    ja_pin9_i : in STD_LOGIC;
-    ja_pin10_o : out STD_LOGIC;
-    ja_pin4_o : out STD_LOGIC;
-    ja_pin3_i : in STD_LOGIC;
-    ja_pin4_i : in STD_LOGIC;
-    ja_pin1_i : in STD_LOGIC;
-    ja_pin2_i : in STD_LOGIC;
-    ja_pin10_t : out STD_LOGIC;
-    ja_pin8_t : out STD_LOGIC;
-    ja_pin9_t : out STD_LOGIC;
-    ja_pin4_t : out STD_LOGIC;
-    ja_pin9_o : out STD_LOGIC;
-    ja_pin10_i : in STD_LOGIC;
-    ja_pin7_t : out STD_LOGIC;
-    ja_pin1_t : out STD_LOGIC;
-    ja_pin2_t : out STD_LOGIC;
-    ja_pin7_o : out STD_LOGIC;
-    ja_pin3_t : out STD_LOGIC;
-    ja_pin8_o : out STD_LOGIC;
     jb_pin1_o : out STD_LOGIC;
     jb_pin7_i : in STD_LOGIC;
     jb_pin2_o : out STD_LOGIC;
@@ -163,6 +139,30 @@ architecture STRUCTURE of system_100_wrapper is
     jb_pin7_o : out STD_LOGIC;
     jb_pin3_t : out STD_LOGIC;
     jb_pin8_o : out STD_LOGIC;
+    ja_pin1_o : out STD_LOGIC;
+    ja_pin7_i : in STD_LOGIC;
+    ja_pin2_o : out STD_LOGIC;
+    ja_pin8_i : in STD_LOGIC;
+    ja_pin3_o : out STD_LOGIC;
+    ja_pin9_i : in STD_LOGIC;
+    ja_pin10_o : out STD_LOGIC;
+    ja_pin4_o : out STD_LOGIC;
+    ja_pin3_i : in STD_LOGIC;
+    ja_pin4_i : in STD_LOGIC;
+    ja_pin1_i : in STD_LOGIC;
+    ja_pin2_i : in STD_LOGIC;
+    ja_pin10_t : out STD_LOGIC;
+    ja_pin8_t : out STD_LOGIC;
+    ja_pin9_t : out STD_LOGIC;
+    ja_pin4_t : out STD_LOGIC;
+    ja_pin9_o : out STD_LOGIC;
+    ja_pin10_i : in STD_LOGIC;
+    ja_pin7_t : out STD_LOGIC;
+    ja_pin1_t : out STD_LOGIC;
+    ja_pin2_t : out STD_LOGIC;
+    ja_pin7_o : out STD_LOGIC;
+    ja_pin3_t : out STD_LOGIC;
+    ja_pin8_o : out STD_LOGIC;
     qspi_flash_io0_i : in STD_LOGIC;
     qspi_flash_io0_o : out STD_LOGIC;
     qspi_flash_io0_t : out STD_LOGIC;
