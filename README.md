@@ -11,7 +11,7 @@ a 96x64 OLEDrgb display's text.
 The design targets the Digilent Inc. Arty-A7-100T FPGA development board containing a Xilinx Artix-7 FPGA.
 Two peripherals are used: Digilent Inc. Pmod KYPD, Digilent Inc. Pmod OLEDrgb.
 
-The folder Colors-Tester-Design-AXI contains a Xilinx Vivado IP Integrator plus
+The folder Color-Tester-Design-AXI contains a Xilinx Vivado IP Integrator plus
 Xilinx SDK design. A Microblaze soft CPU is instantiated to talk with board components,
 a 4x4 alphanumeric keypad,
 and 96x64 pixel color display.
