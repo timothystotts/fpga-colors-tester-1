@@ -189,9 +189,9 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 {
 	u16 keystate;
 	XStatus status = KYPD_NO_KEY;
-	XStatus lastStatus = KYPD_NO_KEY;
+	static XStatus lastStatus = KYPD_NO_KEY;
 	u8 key = 'x';
-	u8 lastKey = 'x';
+	static u8 lastKey = 'x';
 	u8 stringIdx = 0;
 
 	Xil_Out32(expData->kypdDevice.GPIO_addr, 0xF);
@@ -226,6 +226,7 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 			// All sequences are length \ref CAPTURED_STRING_LENGTH
 			if (stringIdx == CAPTURED_STRING_LENGTH)
 			{
+				lastStatus = status;
 				break;
 			}
 		}
@@ -285,7 +286,8 @@ int main()
 				ledChanValue[2] = experiData.capturedString[10];
 				rgbChanValues[2] = atoi(ledChanValue);
 
-				xil_printf("Testing RGB mix: %03hhu,%03hhu,%03hhu = 0x%02hhx%02hhx%02hhx\r\n",
+				xil_printf("Testing RGB mix LED%u: %03u,%03u,%03u = 0x%02x%02x%02x\r\n",
+						ledSilkIdx,
 						rgbChanValues[0], rgbChanValues[1], rgbChanValues[2],
 						rgbChanValues[0], rgbChanValues[1], rgbChanValues[2]);
 
