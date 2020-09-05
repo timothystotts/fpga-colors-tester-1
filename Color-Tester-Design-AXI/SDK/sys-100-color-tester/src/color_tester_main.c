@@ -89,6 +89,11 @@ typedef struct T_EXPERIMENT_DATA_TAG
 	u32 switchesReadPrev;
 	u32 buttonsReadPrev;
 	/* Captured keypad string */
+	XStatus kypdStatus;
+	XStatus kypdLastStatus;
+	u8 key;
+	u8 lastKey;
+	u8 stringIdx;
 	u8 capturedString[CAPTURED_STRING_LENGTH];
 } t_experiment_data;
 
@@ -103,6 +108,21 @@ static void Experiment_SetLedUpdate(t_experiment_data* expData,
 
 /* Global variables */
 t_experiment_data experiData; // Global as that the object is always in scope, including interrupt handler.
+
+/*-----------------------------------------------------------*/
+/* Helper function to initialize Experiment Data. */
+static void Experiment_Initialize(t_experiment_data* expData)
+{
+	expData->switchesRead = 0x00000000;
+	expData->buttonsRead = 0x00000000;
+	expData->switchesReadPrev = 0x00000000;
+	expData->buttonsReadPrev = 0x00000000;
+	expData->kypdStatus = KYPD_NO_KEY;
+	expData->kypdLastStatus = KYPD_NO_KEY;
+	expData->key = 'x';
+	expData->lastKey = 'x';
+	expData->stringIdx = 0;
+}
 
 /*-----------------------------------------------------------*/
 /* Helper function to set an updated state to one of the 8 LEDs. */
@@ -130,7 +150,7 @@ static void Experiment_SetLedUpdate(t_experiment_data* expData,
 void Experiment_OLEDInitialize(t_experiment_data* expData)
 {
 	OLEDrgb_begin(&(expData->oledrgbDevice), XPAR_PMODOLEDRGB_0_AXI_LITE_GPIO_BASEADDR,
-	         XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_BASEADDR);
+			XPAR_PMODOLEDRGB_0_AXI_LITE_SPI_BASEADDR);
 
 	OLEDrgb_SetCursor(&(expData->oledrgbDevice), 0, 0);
 	OLEDrgb_SetFontColor(&(expData->oledrgbDevice), OLEDrgb_BuildRGB(255, 255, 255)); // White font
@@ -188,11 +208,6 @@ void Experiment_PeripheralsInitialize(t_experiment_data* expData)
 void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 {
 	u16 keystate;
-	XStatus status = KYPD_NO_KEY;
-	static XStatus lastStatus = KYPD_NO_KEY;
-	u8 key = 'x';
-	static u8 lastKey = 'x';
-	u8 stringIdx = 0;
 
 	Xil_Out32(expData->kypdDevice.GPIO_addr, 0xF);
 
@@ -202,40 +217,41 @@ void Experiment_CaptureStringFromKeypad(t_experiment_data* expData)
 		keystate = KYPD_getKeyStates(&(expData->kypdDevice));
 
 		// Determine which single key is pressed, if any
-		status = KYPD_getKeyPressed(&(expData->kypdDevice), keystate, &key);
+		expData->kypdStatus = KYPD_getKeyPressed(&(expData->kypdDevice), keystate, &(expData->key));
 
 		// Capture new key if a new key is pressed or if status has changed
-		if ((status == KYPD_SINGLE_KEY) &&
-				((status != lastStatus) || (key != lastKey)))
+		if ((expData->kypdStatus == KYPD_SINGLE_KEY) &&
+				((expData->kypdStatus != expData->kypdLastStatus) || (expData->key != expData->lastKey)))
 		{
-			xil_printf("Key Pressed: %c\r\n", (char)key);
-			lastKey = key;
+			xil_printf("Key Pressed: %c\r\n", (char)(expData->key));
+			expData->lastKey = expData->key;
 
-			// All sequences start with key press 'A'
-			if (key == 'A')
+			// All sequences to capture start with key press 'A'
+			if (expData->key == 'A')
 			{
-				stringIdx = 0;
+				expData->stringIdx = 0;
 			}
 
-			if (stringIdx < CAPTURED_STRING_LENGTH)
+			if (expData->stringIdx < CAPTURED_STRING_LENGTH)
 			{
-				expData->capturedString[stringIdx] = key;
-				stringIdx++;
+				expData->capturedString[expData->stringIdx] = expData->key;
+				++(expData->stringIdx);
 			}
 
-			// All sequences are length \ref CAPTURED_STRING_LENGTH
-			if (stringIdx == CAPTURED_STRING_LENGTH)
+			// All sequences to capture are length \ref CAPTURED_STRING_LENGTH
+			if (expData->stringIdx == CAPTURED_STRING_LENGTH)
 			{
-				lastStatus = status;
+				expData->kypdLastStatus = expData->kypdStatus;
+				expData->stringIdx = 0;
 				break;
 			}
 		}
-		else if ((status == KYPD_MULTI_KEY) && (status != lastStatus))
+		else if ((expData->kypdStatus == KYPD_MULTI_KEY) && (expData->kypdStatus != expData->kypdLastStatus))
 		{
 			xil_printf("Error: Multiple keys pressed\r\n");
 		}
 
-		lastStatus = status;
+		expData->kypdLastStatus = expData->kypdStatus;
 
 		usleep(1000);
 	}
@@ -250,16 +266,19 @@ int main()
 	u8 rgbChanValues[3];
 	u8 ledSilkIdx;
 	char printBuf[16];
-    init_platform();
+	init_platform();
 
-    Experiment_PeripheralsInitialize(&experiData);
+	Experiment_Initialize(&experiData);
+	Experiment_PeripheralsInitialize(&experiData);
 
-    for(;;)
-    {
-    	Experiment_CaptureStringFromKeypad(&experiData);
+	for(;;)
+	{
+		Experiment_CaptureStringFromKeypad(&experiData);
 
-    	if (experiData.capturedString[0] == 'A')
-    	{
+		usleep(500000); /* Delay for human factors */
+
+		if (experiData.capturedString[0] == 'A')
+		{
 			switch (experiData.capturedString[1])
 			{
 			case '0': ledSilkIdx = 0; break;
@@ -307,9 +326,9 @@ int main()
 						"Color LED%d  ", ledSilkIdx);
 				OLEDrgb_PutString(&(experiData.oledrgbDevice), printBuf);
 			}
-    	}
-    }
+		}
+	}
 
-    cleanup_platform();
-    return 0;
+	cleanup_platform();
+	return 0;
 }
