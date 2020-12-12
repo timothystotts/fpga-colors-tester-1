@@ -53,13 +53,13 @@
     <Option Name="WTVcsLaunchSim" Val="0"/>
     <Option Name="WTRivieraLaunchSim" Val="0"/>
     <Option Name="WTActivehdlLaunchSim" Val="0"/>
-    <Option Name="WTXSimExportSim" Val="6"/>
-    <Option Name="WTModelSimExportSim" Val="6"/>
-    <Option Name="WTQuestaExportSim" Val="6"/>
-    <Option Name="WTIesExportSim" Val="6"/>
-    <Option Name="WTVcsExportSim" Val="6"/>
-    <Option Name="WTRivieraExportSim" Val="6"/>
-    <Option Name="WTActivehdlExportSim" Val="6"/>
+    <Option Name="WTXSimExportSim" Val="7"/>
+    <Option Name="WTModelSimExportSim" Val="7"/>
+    <Option Name="WTQuestaExportSim" Val="7"/>
+    <Option Name="WTIesExportSim" Val="7"/>
+    <Option Name="WTVcsExportSim" Val="7"/>
+    <Option Name="WTRivieraExportSim" Val="7"/>
+    <Option Name="WTActivehdlExportSim" Val="7"/>
     <Option Name="GenerateIPUpgradeLog" Val="TRUE"/>
     <Option Name="XSimRadix" Val="hex"/>
     <Option Name="XSimTimeUnit" Val="ns"/>
@@ -81,35 +81,32 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_PmodOLEDrgb_0_3/system_100_PmodOLEDrgb_0_3.xci">
-          <Proxy FileSetName="system_100_PmodOLEDrgb_0_3"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_clk_wiz_0_0/system_100_clk_wiz_0_0.xci">
-          <Proxy FileSetName="system_100_clk_wiz_0_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_microblaze_0_axi_intc_0/system_100_microblaze_0_axi_intc_0.xci">
-          <Proxy FileSetName="system_100_microblaze_0_axi_intc_0"/>
-        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_lmb_bram_0/system_100_lmb_bram_0.xci">
           <Proxy FileSetName="system_100_lmb_bram_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_ilmb_bram_if_cntlr_0/system_100_ilmb_bram_if_cntlr_0.xci">
-          <Proxy FileSetName="system_100_ilmb_bram_if_cntlr_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_dlmb_bram_if_cntlr_0/system_100_dlmb_bram_if_cntlr_0.xci">
-          <Proxy FileSetName="system_100_dlmb_bram_if_cntlr_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_ilmb_v10_0/system_100_ilmb_v10_0.xci">
           <Proxy FileSetName="system_100_ilmb_v10_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_mig_7series_0_0/system_100_mig_7series_0_0.xci">
-          <Proxy FileSetName="system_100_mig_7series_0_0"/>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_dlmb_v10_0/system_100_dlmb_v10_0.xci">
+          <Proxy FileSetName="system_100_dlmb_v10_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_microblaze_0_0/system_100_microblaze_0_0.xci">
           <Proxy FileSetName="system_100_microblaze_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_dlmb_v10_0/system_100_dlmb_v10_0.xci">
-          <Proxy FileSetName="system_100_dlmb_v10_0"/>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_mig_7series_0_0/system_100_mig_7series_0_0.xci">
+          <Proxy FileSetName="system_100_mig_7series_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_clk_wiz_0_0/system_100_clk_wiz_0_0.xci">
+          <Proxy FileSetName="system_100_clk_wiz_0_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_dlmb_bram_if_cntlr_0/system_100_dlmb_bram_if_cntlr_0.xci">
+          <Proxy FileSetName="system_100_dlmb_bram_if_cntlr_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_ilmb_bram_if_cntlr_0/system_100_ilmb_bram_if_cntlr_0.xci">
+          <Proxy FileSetName="system_100_ilmb_bram_if_cntlr_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_microblaze_0_axi_intc_0/system_100_microblaze_0_axi_intc_0.xci">
+          <Proxy FileSetName="system_100_microblaze_0_axi_intc_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_mdm_1_0/system_100_mdm_1_0.xci">
           <Proxy FileSetName="system_100_mdm_1_0"/>
@@ -146,6 +143,9 @@
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_PmodKYPD_0_1/system_100_PmodKYPD_0_1.xci">
           <Proxy FileSetName="system_100_PmodKYPD_0_1"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="system_100.bd" FileRelPathName="ip/system_100_PmodOLEDrgb_0_3/system_100_PmodOLEDrgb_0_3.xci">
+          <Proxy FileSetName="system_100_PmodOLEDrgb_0_3"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PPRDIR/../../IPI-BDs/system_100/hdl/system_100_wrapper.vhd">
@@ -361,11 +361,13 @@
   <Runs Version="1" Minor="15">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a100ticsg324-1L" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" AutoIncrementalDir="$PPRDIR/../../../../../W:/wa/fpga-colors-tester-1/Color-Tester-Design-AXI/Work_Dir/Arty-A7-100/Color-Tester-Design-AXI.srcs/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2019"/>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2019"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2020"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
@@ -581,9 +583,7 @@
     </Run>
     <Run Id="system_100_axi_smc_0_synth_1" Type="Ft3:Synth" SrcSet="system_100_axi_smc_0" Part="xc7a100ticsg324-1L" ConstrsSet="system_100_axi_smc_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/system_100_axi_smc_0_synth_1" IncludeInArchive="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/system_100_axi_smc_0_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -593,7 +593,9 @@
     </Run>
     <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a100ticsg324-1L" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1" IncludeInArchive="true" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../../W:/wa/fpga-colors-tester-1/Color-Tester-Design-AXI/Work_Dir/Arty-A7-100/Color-Tester-Design-AXI.srcs/utils_1/imports/impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2019"/>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -602,10 +604,12 @@
         <Step Id="phys_opt_design"/>
         <Step Id="route_design"/>
         <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
+        <Step Id="write_bitstream">
+          <Option Id="BinFile">1</Option>
+        </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2019"/>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2020"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
@@ -968,9 +972,7 @@
     </Run>
     <Run Id="system_100_axi_smc_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a100ticsg324-1L" ConstrsSet="system_100_axi_smc_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="system_100_axi_smc_0_synth_1" IncludeInArchive="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/system_100_axi_smc_0_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
