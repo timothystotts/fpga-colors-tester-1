@@ -3,6 +3,9 @@
 FPGA Colors Palette Tester Version 1
 by Timothy Stotts
 
+Note that this project is deprecated. The most recent project, with wider
+hardware support and occasional updates, is Version 3 and is located at:
+[fpga-colors-tester-3](https://github.com/timothystotts/fpga-colors-tester-3)
 
 ## Description
 A small FPGA project of Xilinx IPI-BD with Microblaze CPU implementations for testing
